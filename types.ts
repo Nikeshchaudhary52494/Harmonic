@@ -10,6 +10,15 @@ export type UserDetails = {
     billing_method?: Stripe.PaymentMethod[Stripe.PaymentMethod.Type]
 };
 
+export type Song = {
+    id: string,
+    user_id: string,
+    title: string,
+    author: string,
+    image_path: string,
+    song_path: string
+};
+
 export type Product = {
     id: string,
     active?: boolean,

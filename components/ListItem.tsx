@@ -1,8 +1,8 @@
 "use client"
 
+import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { FaPlay } from "react-icons/fa"
-import { MdFavorite } from "react-icons/md"
 
 type ListItemProps = {
     image: string,
@@ -26,10 +26,13 @@ const ListItem: React.FC<ListItemProps> = ({
     return (
         <button
             onClick={onClick}
-            className="flex relative bg-neutral-100/10 group hover:bg-neutral-100/20 rounded-md transition items-center gap-x-4 ">
-            <div className="min-h-[64px] min-w-[64px]  ">
-                <MdFavorite
-                    className="text-white bg-gradient-to-br h-full w-full p-4 from-blue-700 to-blue-300 rounded-lg aspect-square"
+            className="flex relative bg-neutral-100/10 group overflow-hidden hover:bg-neutral-100/20 rounded-md transition items-center gap-x-4 ">
+            <div className=" relative min-h-[64px] min-w-[64px]  ">
+                <Image
+                    className="object-cover"
+                    src={image}
+                    alt="Image"
+                    fill
                 />
 
             </div>
