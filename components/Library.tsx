@@ -1,11 +1,14 @@
 import { AiOutlinePlus } from 'react-icons/ai'
 import { TbPlaylist } from 'react-icons/tb'
 
+import MediaItem from './MediaItem';
+
 import useAuthModel from '@/hooks/useAuthModal'
 import useUploadModel from '@/hooks/useUploadModal';
 import { useUser } from '@/hooks/useUser';
+import useOnplay from '@/hooks/useOnPlay';
+
 import { Song } from '@/types';
-import MediaItem from './MediaItem';
 
 type LibraryProps = {
     songs: Song[]
@@ -18,6 +21,7 @@ const Library: React.FC<LibraryProps> = ({
     const authModel = useAuthModel();
     const uploadModel = useUploadModel()
     const { user } = useUser()
+    const onplay = useOnplay(songs);
 
     const onClick = () => {
         if (!user) {
@@ -44,7 +48,7 @@ const Library: React.FC<LibraryProps> = ({
                     songs.map((item) => (
                         <MediaItem
                             key={item.title}
-                            onClick={() => { }}
+                            onClick={onplay}
                             data={item}
                         />
                     ))

@@ -4,7 +4,7 @@ import Image from "next/image"
 
 type MediaItemProps = {
     data: Song,
-    onClick: (id: string) => void,
+    onClick?: (id: string) => void,
 }
 
 const MediaItem: React.FC<MediaItemProps> = ({
