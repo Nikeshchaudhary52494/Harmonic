@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { IconType } from 'react-icons'
 import { twMerge } from 'tailwind-merge'
 
@@ -15,10 +16,12 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
     active
 }) => {
     return (
-        <div className={twMerge('flex gap-4 items-center py-1 font-medium text-neutral-400 text-md cursor-pointer transition hover:text-white', active && "text-white")}>
+        <Link
+            href={href}
+            className={twMerge('flex gap-4 items-center py-1 font-medium text-neutral-400 text-md cursor-pointer transition hover:text-white', active && "text-white")}>
             <Icon size={26} />
             <p className='truncate'>{lable}</p>
-        </div>
+        </Link>
     )
 }
 

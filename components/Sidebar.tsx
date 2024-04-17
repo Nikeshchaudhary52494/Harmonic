@@ -7,13 +7,16 @@ import { HiHome } from "react-icons/hi"
 import Box from "./Box"
 import SidebarItem from "./SidebarItem"
 import Library from "./Library"
+import { Song } from "@/types"
 
 type Sidebarprops = {
-    children: React.ReactNode
+    children: React.ReactNode,
+    songs: Song[]
 }
 
 const Sidebar: React.FC<Sidebarprops> = ({
-    children
+    children,
+    songs
 }) => {
 
     const pathname = usePathname();
@@ -48,7 +51,7 @@ const Sidebar: React.FC<Sidebarprops> = ({
                     </div>
                 </Box>
                 <Box className="h-full">
-                    <Library />
+                    <Library songs={songs} />
                 </Box>
             </div>
             <main className="flex-1 py-2">

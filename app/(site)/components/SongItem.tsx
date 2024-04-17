@@ -30,11 +30,11 @@ const SongItem: React.FC<SongItemProps> = ({
           alt="Image"
         />
       </div>
-      <div className="flex flex-col items-start w-full gap-y-1 p-4">
-        <p className="font-semibold">
+      <div className="flex flex-col  items-start w-full gap-y-1 p-4">
+        <p className="font-semibold truncate">
           {data.title}
         </p>
-        <p className="text-sm text-neutral-400">
+        <p className="text-sm truncate text-neutral-400">
           {data.author}
         </p>
       </div>
