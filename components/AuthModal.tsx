@@ -42,10 +42,22 @@ const AuthModal = () => {
             <Auth
                 theme='dark'
                 magicLink
-                providers={["github"]}
+                providers={["github", 'google']}
                 supabaseClient={supabaseClient}
                 appearance={{
                     theme: ThemeSupa
+                }}
+                additionalData={{
+                }}
+                localization={{
+                    variables: {
+                        sign_in: {
+                            email_input_placeholder: "test@gmail.com",
+                            password_input_placeholder: "123456789",
+                            email_label: "Email:test@gmail.com",
+                            password_label: "Password:123456789"
+                        },
+                    },
                 }}
             />
         </Modal>
