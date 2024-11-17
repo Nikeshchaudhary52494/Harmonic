@@ -1,30 +1,15 @@
 "use client "
 
-import {
-    useSessionContext,
-    useSupabaseClient
-} from '@supabase/auth-helpers-react'
-import { useRouter } from 'next/navigation';
-import { Auth } from '@supabase/auth-ui-react';
-import { ThemeSupa } from '@supabase/auth-ui-shared';
-import { useEffect } from 'react';
-
 import useAuthModel from '@/hooks/useAuthModal';
 
 import Modal from './Modal'
+import SignIn from './auth/sign-in';
+import SignUp from './auth/sign-up';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
+import { AudioLines } from 'lucide-react';
 
 const AuthModal = () => {
-    const supabaseClient = useSupabaseClient();
-    const router = useRouter();
-    const { session } = useSessionContext();
     const { isOpen, onClose } = useAuthModel();
-
-    useEffect(() => {
-        if (session) {
-            router.refresh();
-            onClose();
-        }
-    }, [session, onClose, router])
 
     const onChange = (open: boolean) => {
         if (!open) {
@@ -36,30 +21,41 @@ const AuthModal = () => {
         <Modal
             isOpen={isOpen}
             onChange={onChange}
-            title='Welcome back'
-            description='continue to your account'
+            title=''
+            description=''
         >
-            <Auth
-                theme='dark'
-                magicLink
-                providers={["github", 'google']}
-                supabaseClient={supabaseClient}
-                appearance={{
-                    theme: ThemeSupa
-                }}
-                additionalData={{
-                }}
-                localization={{
-                    variables: {
-                        sign_in: {
-                            email_input_placeholder: "test@gmail.com",
-                            password_input_placeholder: "123456789",
-                            email_label: "Email:test@gmail.com",
-                            password_label: "Password:123456789"
-                        },
-                    },
-                }}
-            />
+            <Tabs defaultValue="account" className="max-w-md mx-auto">
+                <TabsContent value="login">
+                    <h1 className="text-3xl flex items-center gap-2 font-bold">
+                        <AudioLines
+                            className='text-[#34b27b]'
+                            size={30}
+                        />
+                        Harmonic
+                    </h1>
+                    <h2 className="text-3xl">Login</h2>
+                </TabsContent>
+                <TabsContent value="register">
+                    <h1 className="text-3xl flex items-center gap-2 font-bold">
+                        <AudioLines
+                            className='text-[#34b27b]'
+                            size={30}
+                        />
+                        Harmonic
+                    </h1>
+                    <h2 className="text-3xl">Create your account</h2>
+                </TabsContent>
+                <TabsList className="grid bg-[#1E1E1E] w-full grid-cols-2">
+                    <TabsTrigger value="login">Login</TabsTrigger>
+                    <TabsTrigger value="register">Register</TabsTrigger>
+                </TabsList>
+                <TabsContent value="login">
+                    <SignIn />
+                </TabsContent>
+                <TabsContent value="register">
+                    <SignUp />
+                </TabsContent>
+            </Tabs>
         </Modal>
     )
 }

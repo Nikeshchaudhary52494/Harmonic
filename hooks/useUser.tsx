@@ -1,77 +1,41 @@
-import { User } from "@supabase/auth-helpers-nextjs"
-import {
-    useSessionContext,
-    useUser as useSupaUser
-} from "@supabase/auth-helpers-react";
-import { createContext, useContext, useEffect, useState } from "react";
+import { getUser } from '@/actions/user/getUser';
+import { User as PrismaUser } from '@prisma/client';
+import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 
-import { Subscription, UserDetails } from "@/types"
-
-type UserContextType = {
-    accessToken: string | null;
-    user: User | null;
-    userDetails: UserDetails | null;
-    isLoading: boolean;
-    subscription: Subscription | null;
+interface UserContextType {
+    user: PrismaUser | null;
+    loading: boolean;
+    refreshUser: () => Promise<void>;
 }
 
-export const UserContext = createContext<UserContextType | undefined>(undefined)
+const UserContext = createContext<UserContextType | undefined>(undefined);
 
-export type props = {
-    [propName: string]: any
+export type Props = {
+    [propName: string]: any;
 }
 
-export const MyUserContextProvider = (props: props) => {
-    const {
-        session,
-        isLoading: isLoadingUser,
-        supabaseClient: supabase
-    } = useSessionContext();
-    const user = useSupaUser();
-    const accessToken = session?.access_token ?? null;
-    const [isLoadingData, setisLoadingData] = useState(false);
-    const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
-    const [subscription, setSubscription] = useState<Subscription | null>(null);
+export const MyUserContextProvider = (props: Props) => {
+    const [user, setUser] = useState<PrismaUser | null>(null);
+    const [loading, setLoading] = useState(true);
 
-    const getUserDetails = () => supabase.from('users').select('*').single();
-    const getSubscription = () => supabase
-        .from('subscriptions')
-        .select('*,prices(*,products(*))')
-        .in('status', ['trailing', 'active'])
-        .single();
+    const fetchUser = useCallback(async () => {
+        setLoading(true);
+        const { user, success } = await getUser();
+        if (success) {
+            setUser(user!);
+        } else {
+            setUser(null);
+        }
+        setLoading(false);
+    }, []);
 
     useEffect(() => {
-        if (user && !isLoadingData && !userDetails && !subscription) {
-            setisLoadingData(true);
+        fetchUser();
+    }, [fetchUser]);
 
-            Promise.allSettled([getUserDetails(), getSubscription()]).then(
-                (results) => {
-                    const userDetailsPromise = results[0];
-                    const subscriptionPromise = results[1];
-
-                    if (userDetailsPromise.status === 'fulfilled')
-                        setUserDetails(userDetailsPromise.value.data as UserDetails);
-                    if (subscriptionPromise.status === "fulfilled")
-                        setSubscription(subscriptionPromise.value.data as Subscription);
-                    setisLoadingData(false);
-                }
-            )
-        } else if (!user && !isLoadingUser && !isLoadingData) {
-            setUserDetails(null);
-            setSubscription(null);
-        }
-    }, [user, isLoadingUser]);
-
-    const value = {
-        accessToken,
-        user,
-        userDetails,
-        subscription,
-        isLoading: isLoadingUser || isLoadingData
-    };
-
-    return <UserContext.Provider value={value} {...props} />
-
+    return (
+        <UserContext.Provider value={{ user, loading, refreshUser: fetchUser }} {...props} />
+    );
 };
 
 export const useUser = () => {
@@ -80,4 +44,4 @@ export const useUser = () => {
         throw new Error('useUser must be used within a MyUserContextProvider');
     }
     return context;
-}
+};

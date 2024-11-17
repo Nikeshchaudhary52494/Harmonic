@@ -1,15 +1,15 @@
-import getSongs from "@/actions/getSongs";
 import Header from "@/components/Header";
 import ListItem from "@/components/ListItem";
 import PageContent from "./components/PageContent";
+import { getUser } from "@/actions/user/getUser";
 
 export const revalidate = 0;
 
 export default async function Home() {
-  const songs = await getSongs();
+  const { user } = await getUser();
   return (
     <div className="bg-neutral-900 h-full overflow-auto overflow-y-auto rounded-lg ">
-      <Header>
+      <Header isUser={user ? true : false}>
         <div className="mt-2">
           <h1 className="text-3xl  text-white font-bold">
             Welcome Back
@@ -36,7 +36,7 @@ export default async function Home() {
           <h1 className="text-white text-2xl font-semibold">Newest songs </h1>
         </div>
         <div>
-          <PageContent songs={songs} />
+          {/* <PageContent songs={songs} /> */}
         </div>
       </div>
 
