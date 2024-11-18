@@ -14,8 +14,8 @@ import { Toaster } from "@/components/ui/toaster";
 const font = Figtree({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Spotify",
-  description: "Listen to music!",
+  title: "Harmonic",
+  description: "Listen to your favourate music!",
 };
 
 export const revalidate = 0;
@@ -32,9 +32,9 @@ export default async function RootLayout({
       <body className={font.className}>
         <UserProvider>
           <ModalProvider />
-          {/* <Sidebar songs={userSongs}> */}
-          {children}
-          {/* </Sidebar> */}
+          <Sidebar songs={[]}>
+            {children}
+          </Sidebar>
           <Player />
         </UserProvider>
         <Toaster />

@@ -18,17 +18,15 @@ const Library: React.FC<LibraryProps> = ({
     songs
 }) => {
 
-    const authModel = useAuthModel();
+    const { onOpen } = useAuthModel();
     const uploadModel = useUploadModel()
     const { user } = useUser()
     const onplay = useOnplay(songs);
 
     const onClick = () => {
         if (!user) {
-            return authModel.onOpen();
+            onOpen();
         }
-
-        // add subscription model
         return uploadModel.onOpen();
     }
     return (

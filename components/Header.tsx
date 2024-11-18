@@ -12,17 +12,18 @@ import useAuthModel from "@/hooks/useAuthModal"
 import Button from "./Button"
 import { logoutUser } from "@/actions/user/logoutUser"
 import { toast } from "@/hooks/use-toast"
+import { User } from "@prisma/client"
 
 type HeaderProps = {
     children: React.ReactNode,
     className?: string
-    isUser: boolean
+    user: User
 }
 
 const Header: React.FC<HeaderProps> = ({
     children,
     className,
-    isUser
+    user
 }) => {
 
     const router = useRouter();
@@ -60,7 +61,7 @@ const Header: React.FC<HeaderProps> = ({
                 </div>
                 <div className="flex justify-between">
                     {
-                        isUser ? (
+                        user ? (
                             <div className="flex gap-x-4 items-center">
                                 <Button
                                     onClick={handleLogout}

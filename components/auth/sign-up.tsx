@@ -69,7 +69,6 @@ export default function SignUp() {
                                 <FormLabel>Name</FormLabel>
                                 <FormControl>
                                     <Input
-                                        className="bg-[#1e1e1e] p-6"
                                         placeholder="John Doe"
                                         {...field} />
                                 </FormControl>
@@ -85,7 +84,6 @@ export default function SignUp() {
                                 <FormLabel>Email</FormLabel>
                                 <FormControl>
                                     <Input
-                                        className="bg-[#1e1e1e] p-6"
                                         placeholder="example@mail.com"
                                         type="email"
                                         {...field} />
@@ -102,7 +100,6 @@ export default function SignUp() {
                                 <FormLabel>Password</FormLabel>
                                 <FormControl>
                                     <Input
-                                        className="bg-[#1e1e1e] p-6"
                                         placeholder="••••••••"
                                         type="password"
                                         {...field} />

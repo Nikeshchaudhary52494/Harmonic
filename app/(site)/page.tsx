@@ -9,7 +9,7 @@ export default async function Home() {
   const { user } = await getUser();
   return (
     <div className="bg-neutral-900 h-full overflow-auto overflow-y-auto rounded-lg ">
-      <Header isUser={user ? true : false}>
+      <Header user={user!}>
         <div className="mt-2">
           <h1 className="text-3xl  text-white font-bold">
             Welcome Back
@@ -36,7 +36,7 @@ export default async function Home() {
           <h1 className="text-white text-2xl font-semibold">Newest songs </h1>
         </div>
         <div>
-          {/* <PageContent songs={songs} /> */}
+          <PageContent songs={[]} />
         </div>
       </div>
 

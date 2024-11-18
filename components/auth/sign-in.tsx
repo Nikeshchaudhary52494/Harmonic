@@ -96,7 +96,6 @@ export default function SignIn() {
                                 <FormLabel>Email</FormLabel>
                                 <FormControl>
                                     <Input
-                                        className="bg-[#1e1e1e] p-6"
                                         placeholder="example@mail.com"
                                         type="email"
                                         {...field} />
@@ -113,7 +112,6 @@ export default function SignIn() {
                                 <FormLabel>Password</FormLabel>
                                 <FormControl>
                                     <Input
-                                        className="bg-[#1e1e1e] p-6"
                                         placeholder="••••••••"
                                         type="password"
                                         {...field} />

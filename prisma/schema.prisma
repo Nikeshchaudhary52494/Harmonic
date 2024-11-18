@@ -12,15 +12,23 @@ model User {
   email    String @unique
   password String
   name     String
-  Song     Song[]
 }
 
 model Song {
-  id         String @id @default(auto()) @map("_id") @db.ObjectId
-  user       User   @relation(fields: [userId], references: [id])
-  userId     String @db.ObjectId
-  title      String
-  author     String
-  image_path String
-  song_path  String
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  artist    String
+  imageFile String
+  audioFile String
+  duration  String
+  Album     Album?  @relation(fields: [albumId], references: [id])
+  albumId   String? @db.ObjectId
+}
+
+model Album {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  artist      String
+  imageFile   String
+  releaseYear Int
+  songs       Song[]
 }
