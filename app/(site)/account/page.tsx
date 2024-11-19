@@ -1,14 +1,13 @@
 import { getUser } from "@/actions/user/getUser"
-import LogoutButton from "@/components/auth/logout-button";
 import Header from "@/components/Header";
 
 
 export default async function Profile() {
     const { user } = await getUser();
     return (
-        <div className="bg-neutral-900 h-full overflow-auto overflow-y-auto rounded-lg ">
+        <div className="h-full overflow-auto overflow-y-auto rounded-lg bg-neutral-900 ">
             <Header user={user!}>
-                <h1 className="text-3xl  text-white font-bold">
+                <h1 className="text-3xl font-bold text-white">
                     Account Details
                 </h1>
             </Header>

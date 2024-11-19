@@ -13,6 +13,7 @@ import Button from "./Button"
 import { logoutUser } from "@/actions/user/logoutUser"
 import { toast } from "@/hooks/use-toast"
 import { User } from "@prisma/client"
+import { TbLayoutDashboardFilled } from "react-icons/tb"
 
 type HeaderProps = {
     children: React.ReactNode,
@@ -29,6 +30,7 @@ const Header: React.FC<HeaderProps> = ({
     const router = useRouter();
     const authModel = useAuthModel();
     const pathname = usePathname();
+    const isAdmin = true;
 
     const handleLogout = async () => {
         const { error } = await logoutUser();
@@ -42,31 +44,31 @@ const Header: React.FC<HeaderProps> = ({
 
     return (
         <div className={twMerge("bg-gradient-to-b rounded-lg from-emerald-800 p-6", className)}>
-            <div className="flex justify-between items-center mb-4">
-                <div className="hidden md:flex gap-x-2 items-center">
-                    <button onClick={() => router.back()} className="rounded-full bg-black transition hover:bg-opacity-50">
+            <div className="flex items-center justify-between mb-4">
+                <div className="items-center hidden md:flex gap-x-2">
+                    <button onClick={() => router.back()} className="transition bg-black rounded-full hover:bg-opacity-50">
                         <RxCaretLeft size={35} />
                     </button>
-                    <button onClick={() => router.forward()} className="rounded-full bg-black transition hover:bg-opacity-50">
+                    <button onClick={() => router.forward()} className="transition bg-black rounded-full hover:bg-opacity-50">
                         <RxCaretRight size={35} />
                     </button>
 
                 </div>
-                <div className="flex md:hidden gap-x-2 items-center">
-                    <button onClick={() => router.replace('/')} className="rounded-full p-2 bg-white transition hover:bg-opacity-50">
+                <div className="flex items-center md:hidden gap-x-2">
+                    <button onClick={() => router.replace('/')} className="p-2 transition bg-white rounded-full hover:bg-opacity-50">
                         <HiHome className="text-black" size={20} />
                     </button>
-                    <button onClick={() => router.replace('/search')} className="rounded-full p-2 bg-white transition hover:bg-opacity-50">
+                    <button onClick={() => router.replace('/search')} className="p-2 transition bg-white rounded-full hover:bg-opacity-50">
                         <BiSearch className="text-black" size={20} />
                     </button>
                 </div>
                 <div className="flex justify-between">
                     {
                         user ? (
-                            <div className="flex gap-x-4 items-center">
+                            <div className="flex items-center gap-x-4">
                                 <Button
                                     onClick={handleLogout}
-                                    className="bg-white px-6 py-2 rounded-full text-black font-bold"
+                                    className="px-6 py-2 font-bold text-black bg-white rounded-full"
                                 >
                                     Logout
                                 </Button>
@@ -75,16 +77,23 @@ const Header: React.FC<HeaderProps> = ({
                                     <Button
                                         onClick={() => router.push('/account')}
                                         className="bg-green-500">
-                                        <FaUser />
+                                        <FaUser size={18} />
                                     </Button>
                                 }
+                                {isAdmin && (
+                                    <Button
+                                        onClick={() => router.push('/dashboard')}
+                                        className="bg-green-500">
+                                        <TbLayoutDashboardFilled size={18} />
+                                    </Button>
+                                )}
                             </div>
                         ) : (
                             <>
                                 <div>
                                     <Button
                                         onClick={authModel.onOpen}
-                                        className="bg-white px-6 py-2 rounded-full text-black font-bold">
+                                        className="px-6 py-2 font-bold text-black bg-white rounded-full">
                                         Login
                                     </Button>
                                 </div>
