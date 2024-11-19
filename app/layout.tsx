@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Figtree } from "next/font/google";
 
-import Sidebar from "@/components/Sidebar";
-
 import UserProvider from "@/providers/UserProvider";
 import ModalProvider from "@/providers/ModalProvider";
 
@@ -32,9 +30,7 @@ export default async function RootLayout({
       <body className={font.className}>
         <UserProvider>
           <ModalProvider />
-          <Sidebar songs={[]}>
-            {children}
-          </Sidebar>
+          {children}
           <Player />
         </UserProvider>
         <Toaster />

@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation"
 import queryString from "query-string";
 
 import useDebounce from "@/hooks/useDebounce";
+import { Input } from "./ui/input";
 
-import Input from "./Input";
 
 const SearchInput = () => {
   const router = useRouter();

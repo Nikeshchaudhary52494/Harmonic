@@ -20,9 +20,9 @@ const SongItem: React.FC<SongItemProps> = ({
   return (
     <div
       onClick={() => onClick(data.id)}
-      className="relative group flex flex-col items-center justify-center rounded-md overflow-hidden gap-x-4 bg-neutral-400/5 cursor-pointer hover:bg-neutral-400/10 transition p-3"
+      className="relative flex flex-col items-center justify-center p-3 overflow-hidden transition rounded-md cursor-pointer group gap-x-4 bg-neutral-400/5 hover:bg-neutral-400/10"
     >
-      <div className="relative aspect-square w-full  h-full rounded-md overflow-hidden">
+      <div className="relative w-full h-full overflow-hidden rounded-md aspect-square">
         <Image
           className="object-cover"
           src={imagePath || "/images/liked.webp"}
@@ -30,7 +30,7 @@ const SongItem: React.FC<SongItemProps> = ({
           alt="Image"
         />
       </div>
-      <div className="flex flex-col  items-start w-full gap-y-1 p-4">
+      <div className="flex flex-col items-start w-full p-4 gap-y-1">
         <p className="font-semibold truncate">
           {data.title}
         </p>

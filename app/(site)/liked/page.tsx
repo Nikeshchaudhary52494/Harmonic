@@ -1,20 +1,19 @@
+import { getUser } from "@/actions/user/getUser";
 import Header from "@/components/Header";
 import LikedContent from "@/components/LikedContent";
 import Image from "next/image";
 
-import getLikedSongs from "@/actions/getLikedSongs"
 
 const Liked = async () => {
-    const songs = await getLikedSongs();
-
+    const { user } = await getUser();
     return (
         <div
-            className="bg-neutral-900 rounded-lg h-full overflow-hidden overflow-y-auto">
-            <Header>
+            className="h-full overflow-hidden overflow-y-auto rounded-lg bg-neutral-900">
+            <Header user={user!}>
                 <div className="mt-20">
                     <div
-                        className="flex flex-col md:flex-row items-center gap-x-5">
-                        <div className="relative h-32 w-32  lg:h-44 lg:w-44">
+                        className="flex flex-col items-center md:flex-row gap-x-5">
+                        <div className="relative w-32 h-32 lg:h-44 lg:w-44">
                             <Image
                                 fill
                                 className="object-cover rounded-lg"
@@ -22,15 +21,15 @@ const Liked = async () => {
                                 src='/images/liked.webp'
                             />
                         </div>
-                        <div className="flex flex-col gap-y-1 mt-4 md:mt-0">
-                            <p className="hidden md:block font-semibold text-sm">PlayList</p>
-                            <h1 className="font-bold text-4xl md:text-5xl lg:text-7xl">Liked songs</h1>
+                        <div className="flex flex-col mt-4 gap-y-1 md:mt-0">
+                            <p className="hidden text-sm font-semibold md:block">PlayList</p>
+                            <h1 className="text-4xl font-bold md:text-5xl lg:text-7xl">Liked songs</h1>
                         </div>
                     </div>
                 </div>
             </Header>
             <div>
-                <LikedContent songs={songs} />
+                <LikedContent songs={[]} />
             </div>
         </div>
     )
