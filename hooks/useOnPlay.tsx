@@ -1,7 +1,7 @@
-import { Song } from "@/types";
 import usePlayer from "./usePlayer";
 import useAuthModel from "./useAuthModal";
 import { useUser } from "./useUser";
+import { Song } from "@prisma/client";
 
 const useOnplay = (songs: Song[]) => {
 

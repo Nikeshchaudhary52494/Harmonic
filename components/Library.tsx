@@ -7,8 +7,8 @@ import useAuthModel from '@/hooks/useAuthModal'
 import useUploadModel from '@/hooks/useUploadModal';
 import { useUser } from '@/hooks/useUser';
 import useOnplay from '@/hooks/useOnPlay';
+import { Song } from '@prisma/client';
 
-import { Song } from '@/types';
 
 type LibraryProps = {
     songs: Song[]
@@ -34,14 +34,14 @@ const Library: React.FC<LibraryProps> = ({
             <div className='flex items-center justify-between p-5'>
                 <div className='flex gap-2'>
                     <TbPlaylist size={26} className='text-neutral-400' />
-                    <p className='text-neutral-400 text-md font-medium'>Your Library</p>
+                    <p className='font-medium text-neutral-400 text-md'>Your Library</p>
                 </div>
                 <AiOutlinePlus
                     size={20}
                     onClick={onClick}
-                    className='text-neutral-400 hover:text-white cursor-pointer transition' />
+                    className='transition cursor-pointer text-neutral-400 hover:text-white' />
             </div>
-            <div className='flex flex-col gap-y-2 mt-4 px-3'>
+            <div className='flex flex-col px-3 mt-4 gap-y-2'>
                 {
                     songs.length === 0 ? (
                         <div className='px-2'>

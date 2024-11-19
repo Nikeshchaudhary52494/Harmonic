@@ -1,4 +1,4 @@
-import { Song } from "@/types";
+import { Song } from "@prisma/client";
 import { useEffect, useMemo, useState } from "react"
 
 const useGetSongById = (id?: string) => {

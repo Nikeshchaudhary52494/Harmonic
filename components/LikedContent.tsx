@@ -4,8 +4,8 @@ import useOnplay from "@/hooks/useOnPlay"
 
 import MediaItem from "./MediaItem"
 import LikedButton from "./LikedButton"
+import { Song } from "@prisma/client"
 
-import { Song } from "@/types"
 
 type LikedContentProps = {
     songs: Song[]

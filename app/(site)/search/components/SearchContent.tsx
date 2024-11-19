@@ -4,8 +4,8 @@ import LikedButton from "@/components/LikedButton"
 import MediaItem from "@/components/MediaItem"
 
 import useOnplay from "@/hooks/useOnPlay"
+import { Song } from "@prisma/client"
 
-import { Song } from "@/types"
 
 type SearchContentProps = {
     songs: Song[]
@@ -19,7 +19,7 @@ const SearchContent: React.FC<SearchContentProps> = ({
 
     if (songs.length === 0) {
         return (
-            <div className="flex flex-col gap-y-2 w-full px-6 text-neutral-600 ">
+            <div className="flex flex-col w-full px-6 gap-y-2 text-neutral-600 ">
                 No songs found
             </div>
         )
@@ -30,7 +30,7 @@ const SearchContent: React.FC<SearchContentProps> = ({
                 songs.map((item) => (
                     <div
                         key={item.id}
-                        className="flex items-center gap-x-4 w-full"
+                        className="flex items-center w-full gap-x-4"
                     >
                         <div className="flex-1">
                             <MediaItem

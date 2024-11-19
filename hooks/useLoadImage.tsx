@@ -1,5 +1,4 @@
-
-import { Song } from "@/types";
+import { Song } from "@prisma/client";
 
 const useLoadImage = (song: Song) => {
 

@@ -7,9 +7,9 @@ import { HiHome } from "react-icons/hi"
 import Box from "./Box"
 import SidebarItem from "./SidebarItem"
 import Library from "./Library"
-import { Song } from "@/types"
 import usePlayer from "@/hooks/usePlayer"
 import { twMerge } from "tailwind-merge"
+import { Song } from "@prisma/client"
 
 type Sidebarprops = {
     children: React.ReactNode,

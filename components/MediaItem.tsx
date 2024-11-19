@@ -1,5 +1,5 @@
 import useLoadImage from "@/hooks/useLoadImage"
-import { Song } from "@/types"
+import { Song } from "@prisma/client";
 import Image from "next/image"
 
 type MediaItemProps = {
@@ -23,7 +23,7 @@ const MediaItem: React.FC<MediaItemProps> = ({
     return (
         <div
             onClick={handleClick}
-            className="flex gap-x-3 cursor-pointer hover:bg-neutral-800/50 w-full p-2 rounded-md ">
+            className="flex w-full p-2 rounded-md cursor-pointer gap-x-3 hover:bg-neutral-800/50 ">
             <div className="relative rounded-md min-h-[48px] min-w-[48px] overflow-hidden">
                 <Image
                     src={imagepath || '/images/liked.webp'}
@@ -32,12 +32,12 @@ const MediaItem: React.FC<MediaItemProps> = ({
                     fill
                 />
             </div>
-            <div className="flex flex-col gap-y-1 overflow-hidden">
+            <div className="flex flex-col overflow-hidden gap-y-1">
                 <p className="truncate">
                     {data.title}
                 </p>
-                <p className="text-neutral-400 text-sm truncate">
-                    {data.author}
+                <p className="text-sm truncate text-neutral-400">
+                    {data.artist}
                 </p>
             </div>
         </div>

@@ -2,7 +2,7 @@
 
 import PlayButton from "@/components/PlayButton"
 import useLoadImage from "@/hooks/useLoadImage"
-import { Song } from "@/types"
+import { Song } from "@prisma/client"
 import Image from "next/image"
 
 type SongItemProps = {
@@ -35,7 +35,7 @@ const SongItem: React.FC<SongItemProps> = ({
           {data.title}
         </p>
         <p className="text-sm truncate text-neutral-400">
-          {data.author}
+          {data.artist}
         </p>
       </div>
       <div className="absolute right-5 bottom-24 ">

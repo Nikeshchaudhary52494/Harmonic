@@ -1,7 +1,7 @@
 "use client"
 
-import { Song } from "@/types"
 
+import { Song } from "@prisma/client"
 import SongItem from "./SongItem"
 
 import useOnplay from "@/hooks/useOnPlay"
