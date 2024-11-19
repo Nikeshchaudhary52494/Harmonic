@@ -1,6 +1,6 @@
 "use client"
 
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { BiSearch } from "react-icons/bi"
 import { HiHome } from "react-icons/hi"
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx"
@@ -28,6 +28,7 @@ const Header: React.FC<HeaderProps> = ({
 
     const router = useRouter();
     const authModel = useAuthModel();
+    const pathname = usePathname();
 
     const handleLogout = async () => {
         const { error } = await logoutUser();
@@ -69,11 +70,14 @@ const Header: React.FC<HeaderProps> = ({
                                 >
                                     Logout
                                 </Button>
-                                <Button
-                                    onClick={() => router.push('/account')}
-                                    className="bg-green-500">
-                                    <FaUser />
-                                </Button>
+                                {
+                                    pathname !== "/account" &&
+                                    <Button
+                                        onClick={() => router.push('/account')}
+                                        className="bg-green-500">
+                                        <FaUser />
+                                    </Button>
+                                }
                             </div>
                         ) : (
                             <>
