@@ -9,11 +9,11 @@ import { FaUser } from "react-icons/fa"
 
 import useAuthModel from "@/hooks/useAuthModal"
 
-import Button from "./Button"
 import { logoutUser } from "@/actions/user/logoutUser"
 import { toast } from "@/hooks/use-toast"
 import { User } from "@prisma/client"
 import { TbLayoutDashboardFilled } from "react-icons/tb"
+import { Button } from "./ui/button"
 
 type HeaderProps = {
     children: React.ReactNode,
@@ -68,13 +68,14 @@ const Header: React.FC<HeaderProps> = ({
                             <div className="flex items-center gap-x-4">
                                 <Button
                                     onClick={handleLogout}
-                                    className="px-6 py-2 font-bold text-black bg-white rounded-full"
+                                    className="font-bold text-black bg-white rounded-full"
                                 >
                                     Logout
                                 </Button>
                                 {
                                     pathname !== "/account" &&
                                     <Button
+                                        size="icon"
                                         onClick={() => router.push('/account')}
                                         className="bg-green-500">
                                         <FaUser size={18} />
@@ -82,6 +83,7 @@ const Header: React.FC<HeaderProps> = ({
                                 }
                                 {isAdmin && (
                                     <Button
+                                        size="icon"
                                         onClick={() => router.push('/dashboard')}
                                         className="bg-green-500">
                                         <TbLayoutDashboardFilled size={18} />

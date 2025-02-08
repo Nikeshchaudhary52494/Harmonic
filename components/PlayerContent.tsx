@@ -17,12 +17,10 @@ import { Song } from "@prisma/client";
 
 type PlayerContentProps = {
     song: Song,
-    songUrl: string
 }
 
 const PlayerContent: React.FC<PlayerContentProps> = ({
     song,
-    songUrl
 }) => {
 
     const player = usePlayer();
@@ -68,7 +66,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
     };
 
     const [play, { pause, sound }] = useSound(
-        songUrl,
+        song.audioFile,
         {
             volume: volume,
             onplay: () => setIsPlaying(true),

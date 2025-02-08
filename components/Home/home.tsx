@@ -2,9 +2,11 @@ import { getUser } from "@/actions/user/getUser";
 import Header from "../Header";
 import ListItem from "../ListItem";
 import PageContent from "@/components/Home/PageContent";
+import { db } from "@/lib/db";
 
 export default async function Home() {
     const { user } = await getUser();
+    const songs = await db.song.findMany();
     return (
         <div className="h-full overflow-auto overflow-y-auto rounded-lg bg-neutral-900 ">
             <Header user={user!}>
@@ -26,7 +28,7 @@ export default async function Home() {
                     <h1 className="text-2xl font-semibold text-white">Newest songs </h1>
                 </div>
                 <div>
-                    <PageContent songs={[]} />
+                    <PageContent songs={songs} />
                 </div>
             </div>
 
