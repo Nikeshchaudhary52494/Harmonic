@@ -7,22 +7,17 @@ import { HiHome } from "react-icons/hi"
 import Box from "./Box"
 import SidebarItem from "./SidebarItem"
 import Library from "./Library"
-import usePlayer from "@/hooks/usePlayer"
-import { twMerge } from "tailwind-merge"
 import { Song } from "@prisma/client"
 
 type Sidebarprops = {
-    children: React.ReactNode,
     songs: Song[]
 }
 
 const Sidebar: React.FC<Sidebarprops> = ({
-    children,
     songs
 }) => {
 
     const pathname = usePathname();
-    const player = usePlayer();
 
     const routes = useMemo(() => [
         {
@@ -40,26 +35,21 @@ const Sidebar: React.FC<Sidebarprops> = ({
     ], [pathname])
 
     return (
-        <div className={twMerge('flex h-full', player.activeId && "h-[calc(100%-80px)]")}>
-            <div className="hidden md:flex flex-col gap-y-2 bg-black h-full w-[300px] p-2">
-                <Box>
-                    <div className="flex flex-col gap-2 p-5">
-                        {
-                            routes.map((item) => (
-                                <SidebarItem
-                                    key={item.lable}
-                                    {...item} />
-                            ))
-                        }
-                    </div>
-                </Box>
-                <Box className="h-full">
-                    <Library songs={songs} />
-                </Box>
-            </div>
-            <main className="flex-1 py-2 pr-2">
-                {children}
-            </main>
+        <div className="hidden md:flex flex-col gap-y-2 mr-2 bg-black h-full ">
+            <Box>
+                <div className="flex flex-col gap-2 p-5">
+                    {
+                        routes.map((item) => (
+                            <SidebarItem
+                                key={item.lable}
+                                {...item} />
+                        ))
+                    }
+                </div>
+            </Box>
+            <Box className="h-full">
+                <Library songs={songs} />
+            </Box>
         </div>
     )
 }

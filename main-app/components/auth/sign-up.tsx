@@ -19,6 +19,7 @@ import { RegisterUserInput, registerUserSchema } from "@/lib/validationSchemas";
 import { toast } from "@/hooks/use-toast";
 import { registerUser } from "@/actions/user/registerUser";
 import useAuthModel from "@/hooks/useAuthModal";
+import { useUser } from "@/hooks/useUser";
 
 export default function SignUp() {
 
@@ -32,6 +33,7 @@ export default function SignUp() {
     });
 
     const [isPending, startTransition] = useTransition();
+    const { refreshUser } = useUser();
     const { onClose } = useAuthModel();
 
     const onSubmit = (data: RegisterUserInput) => {
@@ -44,6 +46,7 @@ export default function SignUp() {
             const result = await registerUser(formData);
 
             if (result.success) {
+                refreshUser();
                 toast({
                     description: "User registered succesfully",
                 })

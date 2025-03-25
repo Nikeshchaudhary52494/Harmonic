@@ -32,6 +32,7 @@ export default function SignIn() {
 
     const [isPending, startTransition] = useTransition();
     const { onClose } = useAuthModel();
+    const { refreshUser } = useUser();
 
     const onSubmit = (data: SignInUserInput) => {
         startTransition(async () => {
@@ -42,6 +43,7 @@ export default function SignIn() {
             const result = await signInUser(formData);
 
             if (result.success) {
+                refreshUser();
                 toast({
                     description: "User signed in successfully",
                 });
@@ -64,6 +66,7 @@ export default function SignIn() {
             const result = await signInUser(formData);
 
             if (result.success) {
+                refreshUser();
                 toast({
                     description: "Guest user signed in successfully",
                 });

@@ -3,12 +3,13 @@ import Header from "@/components/Header";
 import LikedContent from "@/components/LikedContent";
 import Image from "next/image";
 
-
 const Liked = async () => {
+
     const { user } = await getUser();
+
     return (
         <div
-            className="h-full overflow-hidden overflow-y-auto rounded-lg bg-neutral-900">
+            className="h-full overflow-hidden overflow-y-auto w-full rounded-lg bg-neutral-900">
             <Header user={user!}>
                 <div className="mt-20">
                     <div

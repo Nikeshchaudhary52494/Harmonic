@@ -1,6 +1,7 @@
 import useLoadImage from "@/hooks/useLoadImage"
 import { Song } from "@prisma/client";
 import Image from "next/image"
+import { useSocketContext } from "./provider/socketProvider";
 
 type MediaItemProps = {
     data: Song,
@@ -13,8 +14,16 @@ const MediaItem: React.FC<MediaItemProps> = ({
 }) => {
 
     const imagepath = useLoadImage(data);
+    const { socket, isConnected, currentRoom } = useSocketContext();
 
     const handleClick = () => {
+        if (isConnected) {
+            socket?.emit("control-playback", currentRoom, {
+                songId: data.id,
+                isPlaying: true,
+                progress: 0,
+            })
+        }
         if (onClick) {
             return onClick(data.id)
         }

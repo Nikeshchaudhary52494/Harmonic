@@ -1,7 +1,7 @@
-import express from "express";
-import dotenv from "dotenv";
+import express from 'express';
+import dotenv from 'dotenv';
 import cors from "cors";
-import { app, server } from "./socket.js";
+import { app, server } from './socket.js';
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
@@ -24,11 +24,10 @@ app.use(
 		credentials: true,
 	})
 );
-
-app.get("/", (_, res) => {
-	res.json({ message: "Harmonic web-socket server" });
+app.get('/', (_, res) => {
+	res.json({ message: "Harmonic WebSocket Server" });
 });
 
 server.listen(PORT, () => {
-	console.log(`Server is running at PORT: ${PORT}`);
+	console.log(`Server running on port ${PORT}`);
 });

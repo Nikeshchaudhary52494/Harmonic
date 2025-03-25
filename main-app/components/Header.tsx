@@ -5,20 +5,22 @@ import { BiSearch } from "react-icons/bi"
 import { HiHome } from "react-icons/hi"
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx"
 import { twMerge } from "tailwind-merge"
-import { FaUser } from "react-icons/fa"
 
 import useAuthModel from "@/hooks/useAuthModal"
 
 import { logoutUser } from "@/actions/user/logoutUser"
 import { toast } from "@/hooks/use-toast"
-import { User } from "@prisma/client"
-import { TbLayoutDashboardFilled } from "react-icons/tb"
 import { Button } from "./ui/button"
+import { Disc3, LayoutDashboard, User } from "lucide-react"
+import { useUser } from "@/hooks/useUser"
 
 type HeaderProps = {
-    children: React.ReactNode,
+    children?: React.ReactNode,
     className?: string
-    user: User
+    user: {
+        name: string;
+        id: string;
+    }
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -30,6 +32,7 @@ const Header: React.FC<HeaderProps> = ({
     const router = useRouter();
     const authModel = useAuthModel();
     const pathname = usePathname();
+    const { refreshUser } = useUser();
     const isAdmin = true;
 
     const handleLogout = async () => {
@@ -37,13 +40,14 @@ const Header: React.FC<HeaderProps> = ({
         if (error) {
             toast({ description: "error in logingout" })
         } else {
+            refreshUser();
             toast({ description: "Logout successfully" })
         }
 
     }
 
     return (
-        <div className={twMerge("bg-gradient-to-b rounded-lg from-emerald-800 p-6", className)}>
+        <div className={twMerge("bg-gradient-to-b rounded-lg from-purple-400 p-6", className)}>
             <div className="flex items-center justify-between mb-4">
                 <div className="items-center hidden md:flex gap-x-2">
                     <button onClick={() => router.back()} className="transition bg-black rounded-full hover:bg-opacity-50">
@@ -73,20 +77,26 @@ const Header: React.FC<HeaderProps> = ({
                                     Logout
                                 </Button>
                                 {
+                                    pathname !== "/room" &&
+                                    <Button
+                                        size="icon"
+                                        onClick={() => router.push('/room')}>
+                                        <Disc3 size={18} />
+                                    </Button>
+                                }
+                                {
                                     pathname !== "/account" &&
                                     <Button
                                         size="icon"
-                                        onClick={() => router.push('/account')}
-                                        className="bg-green-500">
-                                        <FaUser size={18} />
+                                        onClick={() => router.push('/account')}>
+                                        <User size={18} />
                                     </Button>
                                 }
                                 {isAdmin && (
                                     <Button
                                         size="icon"
-                                        onClick={() => router.push('/dashboard')}
-                                        className="bg-green-500">
-                                        <TbLayoutDashboardFilled size={18} />
+                                        onClick={() => router.push('/dashboard')}>
+                                        <LayoutDashboard size={18} />
                                     </Button>
                                 )}
                             </div>

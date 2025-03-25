@@ -1,22 +1,21 @@
 import { getUser } from "@/actions/user/getUser";
 import Header from "../Header";
-import ListItem from "../ListItem";
 import PageContent from "@/components/Home/PageContent";
 import { db } from "@/lib/db";
+import LikedSongButton from "../ListItem";
 
 export default async function Home() {
     const { user } = await getUser();
     const songs = await db.song.findMany();
     return (
-        <div className="h-full overflow-auto overflow-y-auto rounded-lg bg-neutral-900 ">
+        <div className="h-full  overflow-y-auto rounded-lg w-full bg-neutral-900">
             <Header user={user!}>
                 <div className="mt-2">
                     <h1 className="text-3xl font-bold text-white">
                         Welcome Back
                     </h1>
                     <div className="grid grid-cols-1 gap-3 mt-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-                        <ListItem
-                            name=""
+                        <LikedSongButton
                             href="/liked"
                             image="/images/liked.webp"
                         />
@@ -31,7 +30,6 @@ export default async function Home() {
                     <PageContent songs={songs} />
                 </div>
             </div>
-
         </div>
     );
 }

@@ -6,8 +6,8 @@ import ModalProvider from "@/providers/ModalProvider";
 
 
 import "./globals.css";
-import Player from "@/components/Player";
 import { Toaster } from "@/components/ui/toaster";
+import { SocketProvider } from "@/components/provider/socketProvider";
 
 const font = Figtree({ subsets: ["latin"] });
 
@@ -29,11 +29,12 @@ export default async function RootLayout({
     <html lang="en">
       <body className={font.className}>
         <UserProvider>
-          <ModalProvider />
-          {children}
-          <Player />
+          <SocketProvider>
+            <ModalProvider />
+            {children}
+            <Toaster />
+          </SocketProvider>
         </UserProvider>
-        <Toaster />
       </body>
     </html >
   );

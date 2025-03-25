@@ -1,9 +1,8 @@
 import { getUser } from '@/actions/user/getUser';
-import { User as PrismaUser } from '@prisma/client';
 import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 
 interface UserContextType {
-    user: PrismaUser | null;
+    user: User | null;
     loading: boolean;
     refreshUser: () => Promise<void>;
 }
@@ -14,8 +13,14 @@ export type Props = {
     [propName: string]: any;
 }
 
+type User = {
+    name: string;
+    id: string;
+    email: string;
+}
+
 export const MyUserContextProvider = (props: Props) => {
-    const [user, setUser] = useState<PrismaUser | null>(null);
+    const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
 
     const fetchUser = useCallback(async () => {

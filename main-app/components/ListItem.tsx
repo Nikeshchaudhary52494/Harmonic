@@ -9,25 +9,23 @@ import { useUser } from "@/hooks/useUser"
 
 type ListItemProps = {
     image: string,
-    name: string,
     href: string
 }
 
-const ListItem: React.FC<ListItemProps> = ({
-    name,
+export default function LikedSongButton({
     image,
     href
-}) => {
+}: ListItemProps) {
 
     const router = useRouter();
     const { user } = useUser();
     const authModal = useAuthModel();
 
     const onClick = () => {
-        if (!user) {
+        if (!user)
             authModal.onOpen();
-        }
-        router.push(href);
+        else
+            router.push(href);
     }
 
     return (
@@ -52,5 +50,3 @@ const ListItem: React.FC<ListItemProps> = ({
         </button>
     )
 }
-
-export default ListItem
