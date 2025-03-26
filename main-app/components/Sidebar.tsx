@@ -4,17 +4,16 @@ import { usePathname } from "next/navigation"
 import { useMemo } from "react"
 import { BiSearch } from "react-icons/bi"
 import { HiHome } from "react-icons/hi"
-import Box from "./Box"
 import SidebarItem from "./SidebarItem"
 import Library from "./Library"
-import { Song } from "@prisma/client"
+import { Album } from "@prisma/client"
 
 type Sidebarprops = {
-    songs: Song[]
+    albums: Album[]
 }
 
 const Sidebar: React.FC<Sidebarprops> = ({
-    songs
+    albums
 }) => {
 
     const pathname = usePathname();
@@ -35,8 +34,8 @@ const Sidebar: React.FC<Sidebarprops> = ({
     ], [pathname])
 
     return (
-        <div className="hidden md:flex flex-col gap-y-2 mr-2 bg-black h-full ">
-            <Box>
+        <div className="flex-col hidden h-full mr-2 bg-black md:flex gap-y-2 ">
+            <div className="w-full rounded-lg bg-neutral-900 h-fit">
                 <div className="flex flex-col gap-2 p-5">
                     {
                         routes.map((item) => (
@@ -46,10 +45,10 @@ const Sidebar: React.FC<Sidebarprops> = ({
                         ))
                     }
                 </div>
-            </Box>
-            <Box className="h-full">
-                <Library songs={songs} />
-            </Box>
+            </div>
+            <div className="w-full h-full rounded-lg bg-neutral-900">
+                <Library albums={albums} />
+            </div>
         </div>
     )
 }

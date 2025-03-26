@@ -72,7 +72,7 @@ const Header: React.FC<HeaderProps> = ({
                             <div className="flex items-center gap-x-4">
                                 <Button
                                     onClick={handleLogout}
-                                    className="font-bold text-black bg-white rounded-full"
+                                    className="font-bold text-black bg-white rounded-full shadow"
                                 >
                                     Logout
                                 </Button>
@@ -80,6 +80,7 @@ const Header: React.FC<HeaderProps> = ({
                                     pathname !== "/room" &&
                                     <Button
                                         size="icon"
+                                        className="bg-purple-400 rounded-full"
                                         onClick={() => router.push('/room')}>
                                         <Disc3 size={18} />
                                     </Button>
@@ -88,6 +89,7 @@ const Header: React.FC<HeaderProps> = ({
                                     pathname !== "/account" &&
                                     <Button
                                         size="icon"
+                                        className="bg-purple-400 rounded-full"
                                         onClick={() => router.push('/account')}>
                                         <User size={18} />
                                     </Button>
@@ -95,6 +97,7 @@ const Header: React.FC<HeaderProps> = ({
                                 {isAdmin && (
                                     <Button
                                         size="icon"
+                                        className="bg-purple-400 rounded-full"
                                         onClick={() => router.push('/dashboard')}>
                                         <LayoutDashboard size={18} />
                                     </Button>
@@ -105,7 +108,7 @@ const Header: React.FC<HeaderProps> = ({
                                 <div>
                                     <Button
                                         onClick={authModel.onOpen}
-                                        className="px-6 py-2 font-bold text-black bg-white rounded-full">
+                                        className="px-6 py-2 font-bold text-black bg-white rounded-full shadow">
                                         Login
                                     </Button>
                                 </div>

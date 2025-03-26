@@ -1,61 +1,58 @@
-import { AiOutlinePlus } from 'react-icons/ai'
-import { TbPlaylist } from 'react-icons/tb'
+import { Library as LibraryIcon } from "lucide-react";
 
-import MediaItem from './MediaItem';
-
-import useAuthModel from '@/hooks/useAuthModal'
-import useUploadModel from '@/hooks/useUploadModal';
-import { useUser } from '@/hooks/useUser';
-import useOnplay from '@/hooks/useOnPlay';
-import { Song } from '@prisma/client';
+import { Album } from '@prisma/client';
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 
 type LibraryProps = {
-    songs: Song[]
+    albums: Album[]
 }
 
 const Library: React.FC<LibraryProps> = ({
-    songs
+    albums
 }) => {
 
-    const { onOpen } = useAuthModel();
-    const uploadModel = useUploadModel()
-    const { user } = useUser()
-    const onplay = useOnplay(songs);
+    const router = useRouter();
 
-    const onClick = () => {
-        if (!user) {
-            onOpen();
-        }
-        return uploadModel.onOpen();
-    }
     return (
         <div className='flex flex-col'>
             <div className='flex items-center justify-between p-5'>
                 <div className='flex gap-2'>
-                    <TbPlaylist size={26} className='text-neutral-400' />
-                    <p className='font-medium text-neutral-400 text-md'>Your Library</p>
+                    <LibraryIcon size={26} className='text-neutral-400' />
+                    <p className='font-medium text-neutral-400 text-md'>Albums</p>
                 </div>
-                <AiOutlinePlus
-                    size={20}
-                    onClick={onClick}
-                    className='transition cursor-pointer text-neutral-400 hover:text-white' />
             </div>
             <div className='flex flex-col px-3 mt-4 gap-y-2'>
                 {
-                    songs.length === 0 ? (
+                    albums.length === 0 ? (
                         <div className='px-2'>
                             <p className='text-neutral-400'>
-                                No song added
+                                No album added
                             </p>
                         </div>
                     ) : (
-                        songs.map((item) => (
-                            <MediaItem
-                                key={item.title}
-                                onClick={onplay}
-                                data={item}
-                            />
+                        albums.map((item) => (
+                            <div
+                                onClick={() => router.push(`/album/${item.id}`)}
+                                className="flex w-full p-2 rounded-md cursor-pointer gap-x-3 hover:bg-neutral-800/50 ">
+                                <div className="relative rounded-md min-h-[48px] min-w-[48px] overflow-hidden">
+                                    <Image
+                                        src={item.imageFile || '/images/liked.webp'}
+                                        alt="Image"
+                                        className="object-cover"
+                                        fill
+                                    />
+                                </div>
+                                <div className="flex flex-col overflow-hidden gap-y-1">
+                                    <p className="truncate">
+                                        {item.title}
+                                    </p>
+                                    <p className="text-sm truncate text-neutral-400">
+                                        {item.artist}
+                                    </p>
+                                </div>
+                            </div>
                         ))
                     )
                 }

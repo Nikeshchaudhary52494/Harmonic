@@ -23,10 +23,13 @@ model Song {
   duration  String
   Album     Album?  @relation(fields: [albumId], references: [id])
   albumId   String? @db.ObjectId
+
+  createdAt DateTime @default(now())
 }
 
 model Album {
   id          String @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
   artist      String
   imageFile   String
   releaseYear Int

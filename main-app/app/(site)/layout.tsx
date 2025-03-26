@@ -9,14 +9,14 @@ export default async function RootLayout({
     children: React.ReactNode;
 }>) {
 
-    const songs = await db.song.findMany();
+    const albums = await db.album.findMany();
 
     return (
         <>
-            <div className="flex h-full p-2 flex-col overflow-hidden">
+            <div className="flex flex-col h-full p-2 overflow-hidden">
                 <div className="flex h-full">
-                    <div className="w-[350px] h-full">
-                        <Sidebar songs={songs} />
+                    <div className="w-[350px] hidden md:block h-full">
+                        <Sidebar albums={albums} />
                     </div>
                     {children}
                 </div>

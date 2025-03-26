@@ -12,8 +12,25 @@ import {
 
 import DashboardStats from "./dashboard-stats";
 import Link from "next/link";
+import SongsTabContent from "./SongsTabContent";
+import AlbumsTabContent from "./AlbumsTabContent";
+import { db } from "@/lib/db";
 
-export default function Dashboard() {
+export default async function Dashboard() {
+
+    const [songs, albums] = await Promise.all([
+        db.song.findMany(),
+        db.album.findMany({
+            include: {
+                _count: {
+                    select: {
+                        songs: true
+                    }
+                }
+            }
+        }),
+    ])
+
     return (
         <div
             className='min-h-screen p-8 bg-gradient-to-b from-zinc-900 via-zinc-900 to-black text-zinc-100'
@@ -43,8 +60,10 @@ export default function Dashboard() {
                 </TabsList>
 
                 <TabsContent value='songs'>
+                    <SongsTabContent songs={songs} albums={albums} />
                 </TabsContent>
                 <TabsContent value='albums'>
+                    <AlbumsTabContent albums={albums} />
                 </TabsContent>
             </Tabs>
         </div>

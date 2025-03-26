@@ -2,7 +2,7 @@
 const nextConfig = {
     images: {
         domains: [
-            "odnmvvzktpjerbxcnwqq.supabase.co"
+            "res.cloudinary.com"
         ]
     }
 };
