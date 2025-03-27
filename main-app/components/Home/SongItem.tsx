@@ -1,7 +1,6 @@
 "use client"
 
 import PlayButton from "@/components/PlayButton"
-import useLoadImage from "@/hooks/useLoadImage"
 import { Song } from "@prisma/client"
 import Image from "next/image"
 
@@ -15,8 +14,6 @@ const SongItem: React.FC<SongItemProps> = ({
   onClick
 }) => {
 
-  const imagePath = useLoadImage(data);
-
   return (
     <div
       onClick={() => onClick(data.id)}
@@ -25,7 +22,7 @@ const SongItem: React.FC<SongItemProps> = ({
       <div className="relative w-full h-full overflow-hidden rounded-md aspect-square">
         <Image
           className="object-cover"
-          src={imagePath || "/images/liked.webp"}
+          src={data.imageFile || "/images/liked.webp"}
           fill
           alt="Image"
         />

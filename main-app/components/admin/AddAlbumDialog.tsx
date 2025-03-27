@@ -81,7 +81,7 @@ const AddAlbumDialog = () => {
                     Add Album
                 </Button>
             </DialogTrigger>
-            <DialogContent className='flex flex-col h-full pt-40 md:p-4 md:max-h-[80vh] md:h-fit bg-zinc-900 border-zinc-700'>
+            <DialogContent className='flex flex-col h-full pt-40 md:p-4 md:h-fit bg-zinc-900 border-zinc-700'>
                 <DialogHeader className="text-start">
                     <DialogTitle className="text-2xl">Add New Album</DialogTitle>
                     <DialogDescription>Add a new album to your collection</DialogDescription>

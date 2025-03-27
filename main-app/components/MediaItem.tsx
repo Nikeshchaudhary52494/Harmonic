@@ -1,4 +1,3 @@
-import useLoadImage from "@/hooks/useLoadImage"
 import { Song } from "@prisma/client";
 import Image from "next/image"
 import { useSocketContext } from "./provider/socketProvider";
@@ -13,7 +12,6 @@ const MediaItem: React.FC<MediaItemProps> = ({
     onClick
 }) => {
 
-    const imagepath = useLoadImage(data);
     const { socket, isConnected, currentRoom } = useSocketContext();
 
     const handleClick = () => {
@@ -35,7 +33,7 @@ const MediaItem: React.FC<MediaItemProps> = ({
             className="flex w-full p-2 rounded-md cursor-pointer gap-x-3 hover:bg-neutral-800/50 ">
             <div className="relative rounded-md min-h-[48px] min-w-[48px] overflow-hidden">
                 <Image
-                    src={imagepath || '/images/liked.webp'}
+                    src={data.imageFile || '/images/liked.webp'}
                     alt="Image"
                     className="object-cover"
                     fill

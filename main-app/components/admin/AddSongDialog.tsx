@@ -102,7 +102,7 @@ const AddSongDialog = ({ albums }: { albums: Album[] }) => {
                 </Button>
             </DialogTrigger>
 
-            <DialogContent className='bg-zinc-900 border-zinc-700 md:max-h-[80vh] md:h-fit md:p-4 h-full flex flex-col pt-40 overflow-auto md:pt-0'>
+            <DialogContent className='bg-zinc-900 border-zinc-700 md:max-h-[85vh] md:h-fit md:p-4 h-full flex flex-col pt-40 overflow-auto md:pt-0'>
                 <DialogHeader className="text-start">
                     <DialogTitle className="text-2xl">Add New Song</DialogTitle>
                     <DialogDescription>Add a new song to your music library</DialogDescription>

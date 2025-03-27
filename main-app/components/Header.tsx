@@ -20,6 +20,7 @@ type HeaderProps = {
     user: {
         name: string;
         id: string;
+        email: string;
     }
 }
 
@@ -33,7 +34,8 @@ const Header: React.FC<HeaderProps> = ({
     const authModel = useAuthModel();
     const pathname = usePathname();
     const { refreshUser } = useUser();
-    const isAdmin = true;
+
+    const isAdmin = process.env.NEXT_PUBLIC_ADMIN_EMAIL === user.email;
 
     const handleLogout = async () => {
         const { error } = await logoutUser();
