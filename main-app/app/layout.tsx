@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Figtree } from "next/font/google";
 
-import UserProvider from "@/providers/UserProvider";
-import ModalProvider from "@/providers/ModalProvider";
+import UserProvider from "@/components/provider/UserProvider";
+import ModalProvider from "@/components/provider/ModalProvider";
 
 
 import "./globals.css";

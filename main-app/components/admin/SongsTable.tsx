@@ -1,5 +1,6 @@
 "use client"
 
+import deleteSong from "@/actions/song/deleteSong";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Song } from "@prisma/client";
@@ -7,8 +8,8 @@ import { Calendar, Trash2 } from "lucide-react";
 
 const SongsTable = ({ songs }: { songs: Song[] }) => {
 
-    const deleteSong = (songId: string) => {
-
+    const handleDeleteSong = async (songId: string) => {
+        await deleteSong(songId);
     }
 
     return (
@@ -44,7 +45,7 @@ const SongsTable = ({ songs }: { songs: Song[] }) => {
                                     variant={"ghost"}
                                     size={"sm"}
                                     className='text-red-400 hover:text-red-300 hover:bg-red-400/10'
-                                    onClick={() => deleteSong(song.id)}
+                                    onClick={() => handleDeleteSong(song.id)}
                                 >
                                     <Trash2 className='size-4' />
                                 </Button>

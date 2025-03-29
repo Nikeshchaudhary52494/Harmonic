@@ -1,9 +1,15 @@
-import { Song } from "@prisma/client";
 import Image from "next/image"
 import { useSocketContext } from "./provider/socketProvider";
 
+interface song {
+    id: string;
+    title: string;
+    imageFile: string;
+    artist: string
+}[]
+
 type MediaItemProps = {
-    data: Song,
+    data: song
     onClick?: (id: string) => void,
 }
 

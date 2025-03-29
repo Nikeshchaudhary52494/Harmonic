@@ -5,8 +5,10 @@ import { db } from "@/lib/db";
 import LikedSongButton from "../ListItem";
 
 export default async function Home() {
+
     const { user } = await getUser();
     const songs = await db.song.findMany();
+
     return (
         <div className="h-full  overflow-y-auto rounded-lg w-full bg-neutral-900">
             <Header user={user!}>

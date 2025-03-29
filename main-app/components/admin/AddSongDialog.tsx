@@ -33,7 +33,7 @@ const AddSongDialog = ({ albums }: { albums: Album[] }) => {
         title: "",
         artist: "",
         album: "",
-        duration: "0",
+        duration: "",
     });
 
     const [files, setFiles] = useState<{ audio: File | null; image: File | null }>({
@@ -164,6 +164,7 @@ const AddSongDialog = ({ albums }: { albums: Album[] }) => {
                     <div className='space-y-2'>
                         <label className='text-sm font-medium'>Title</label>
                         <Input
+                            placeholder="Interworld"
                             value={newSong.title}
                             onChange={(e) => setNewSong({ ...newSong, title: e.target.value })}
                             className='bg-zinc-800 border-zinc-700'
@@ -173,6 +174,7 @@ const AddSongDialog = ({ albums }: { albums: Album[] }) => {
                     <div className='space-y-2'>
                         <label className='text-sm font-medium'>Artist</label>
                         <Input
+                            placeholder="Ivan Belozerov"
                             value={newSong.artist}
                             onChange={(e) => setNewSong({ ...newSong, artist: e.target.value })}
                             className='bg-zinc-800 border-zinc-700'
@@ -182,8 +184,7 @@ const AddSongDialog = ({ albums }: { albums: Album[] }) => {
                     <div className='space-y-2'>
                         <label className='text-sm font-medium'>Duration (seconds)</label>
                         <Input
-                            type='number'
-                            min='0'
+                            placeholder="120"
                             value={newSong.duration}
                             onChange={(e) => setNewSong({ ...newSong, duration: e.target.value || "0" })}
                             className='bg-zinc-800 border-zinc-700'

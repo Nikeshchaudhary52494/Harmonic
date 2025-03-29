@@ -55,11 +55,13 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song }) => {
                 soundRef.current.pause();
                 socket?.emit("control-playback", currentRoom, {
                     isPlaying: false,
+                    progress
                 })
             } else {
                 soundRef.current.play();
                 socket?.emit("control-playback", currentRoom, {
                     isPlaying: true,
+                    progress,
                 })
                 startProgressTracking();
             }
@@ -123,11 +125,20 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song }) => {
         };
     }, [song.audioFile]);
 
+    function formatDuration(seconds: number): string {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = Math.floor(seconds % 60);
+        return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
+    }
+
+
     useEffect(() => {
         if (!isConnected || !socket) return;
 
-        const handleSyncState = (data: { isPlaying: boolean }) => {
+        const handleSyncState = (data: { isPlaying: boolean, progress: number }) => {
             setIsPlaying(data.isPlaying);
+            setProgress(data.progress);
+            soundRef.current?.seek(data.progress)
             data.isPlaying ?
                 soundRef.current?.play() :
                 soundRef.current?.pause();
@@ -146,46 +157,39 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song }) => {
     }, [volume]);
 
     return (
-        <div className="grid h-full grid-cols-2 md:grid-cols-3">
-            <div className="flex justify-start items-center w-full">
-                <div className="flex items-center gap-x-4">
-                    <MediaItem data={song} />
-                    <LikedButton songId={song.id} />
-                </div>
+        <div className="grid h-full grid-cols-1 md:grid-cols-3">
+            <div className="flex md:max-w-[300px] justify-start md:justify-between w-full pr-2 md:pr-0 items-center">
+                <MediaItem data={song} />
+                <LikedButton songId={song.id} />
             </div>
 
-            <div className="flex items-center justify-end w-full col-auto md:hidden">
-                <div
-                    onClick={handlePlay}
-                    className="flex items-center justify-center w-10 h-10 p-1 bg-white rounded-full cursor-pointer"
-                >
-                    <PlayIcon size={30} className="text-black" />
+            <div className="flex p-2 md:flex-col gap-10 md:gap-0 items-center max-w-[722px] justify-center">
+                <div className="flex w-full gap-2">
+                    <p className="w-12">{formatDuration(parseInt(song.duration))}</p>
+                    <Slider
+                        value={[progress]}
+                        max={soundRef.current?.duration() || parseInt(song.duration) || 100}
+                        onValueChange={handleSeek}
+                        step={0.1}
+                    />
+                    <p className="w-12">{formatDuration(progress)}</p>
                 </div>
-            </div>
-
-            <div className="flex p-2 flex-col justify-center">
-                <Slider
-                    value={[progress]}
-                    max={soundRef.current?.duration() || parseInt(song.duration) || 100}
-                    onValueChange={handleSeek}
-                    step={0.1}
-                />
-                <div className="hidden h-full md:flex justify-center items-center w-full max-w-[722px] gap-x-6">
+                <div className="flex h-full w-fit  justify-center items-center md:w-full  gap-x-6">
                     <AiFillStepBackward
                         onClick={onPlayPrevious}
                         size={30}
-                        className="transition cursor-pointer text-neutral-400 hover:text-white"
+                        className="transition hidden md:flex  cursor-pointer text-neutral-400 hover:text-white"
                     />
                     <div
                         onClick={handlePlay}
-                        className="flex items-center justify-center w-10 h-10 p-1 bg-white rounded-full cursor-pointer"
+                        className="items-center justify-center w-10 h-10 p-1 bg-white rounded-full cursor-pointer"
                     >
                         <PlayIcon size={30} className="text-black" />
                     </div>
                     <AiFillStepForward
                         onClick={onPlayNext}
                         size={30}
-                        className="transition cursor-pointer text-neutral-400 hover:text-white"
+                        className="transition hidden md:flex  cursor-pointer text-neutral-400 hover:text-white"
                     />
                 </div>
             </div>

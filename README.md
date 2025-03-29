@@ -38,25 +38,25 @@ git clone https://github.com/Nikeshchaudhary52494/Harmonic.git
 #### **Frontend `.env` (main-app)**
    Create or edit the .env file and add the following line:  
    
-```bash
-    DATABASE_URL
-    JWT_SECRET
-    CLOUDINARY_API_SECRET
-    CLOUDINARY_API_KEY
-    NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
-    SOCKET_SITE_URL
-    NEXT_PUBLIC_ADMIN_EMAIL
-```
+    ```bash
+        DATABASE_URL
+        JWT_SECRET
+        CLOUDINARY_API_SECRET
+        CLOUDINARY_API_KEY
+        NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+        SOCKET_SITE_URL
+        NEXT_PUBLIC_ADMIN_EMAIL
+    ```
 #### **Backend `.env` (websocket-server)**
 
-```bash
-    NEXT_PUBLIC_SITE_URL
-```
+    ```bash
+        NEXT_PUBLIC_SITE_URL
+    ```
 
 4. **Install dependencies:**
    Navigate to the root folder run:
     ```bash
-     npm install
+     npm install && npx prisma generate && npx prisma db push
     ```
 5. **Start the server:**  
     ```bash

@@ -1,9 +1,14 @@
 import usePlayer from "./usePlayer";
 import useAuthModel from "./useAuthModal";
 import { useUser } from "./useUser";
-import { Song } from "@prisma/client";
 
-const useOnplay = (songs: Song[]) => {
+interface song {
+    id: string;
+    title: string;
+    imageFile: string;
+}
+
+const useOnplay = (songs: song[]) => {
 
     const player = usePlayer();
     const authModal = useAuthModel();

@@ -17,7 +17,7 @@ const Player = () => {
     }
 
     return (
-        <div className='h-20 mt-2 rounded-lg bg-[#171717]'>
+        <div className='h-32 mt-2 rounded-lg bg-[#171717]'>
             <PlayerContent
                 key={song.id}
                 song={song}

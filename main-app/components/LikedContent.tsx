@@ -4,16 +4,13 @@ import useOnplay from "@/hooks/useOnPlay"
 
 import MediaItem from "./MediaItem"
 import LikedButton from "./LikedButton"
-import { Song } from "@prisma/client"
+import { useUser } from "@/hooks/useUser"
 
+const LikedContent = () => {
 
-type LikedContentProps = {
-    songs: Song[]
-}
+    const { user } = useUser();
+    const songs = user?.likedSongs || [];
 
-const LikedContent: React.FC<LikedContentProps> = ({
-    songs
-}) => {
     const onPlay = useOnplay(songs);
     if (songs.length === 0) {
         return (

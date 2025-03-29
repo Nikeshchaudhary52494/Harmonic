@@ -1,9 +1,9 @@
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
-import useAuthModel from "@/hooks/useAuthModal";
 import { useUser } from "@/hooks/useUser";
+import likeSong from "@/actions/song/likeSong";
+import unlikeSong from "@/actions/song/unLikeSong";
 
 type LikedButtonProps = {
     songId: string,
@@ -13,23 +13,33 @@ const LikedButton: React.FC<LikedButtonProps> = ({
     songId
 }) => {
 
-    const router = useRouter();
-    const authModel = useAuthModel();
-    const { user } = useUser();
+    const { user, refreshUser } = useUser();
 
     const [isLiked, setIsLiked] = useState(false);
+
 
     const Icon = isLiked ? AiFillHeart : AiOutlineHeart;
 
     const handleLike = async () => {
+        if (isLiked)
+            await unlikeSong(songId, user?.id!);
+        else
+            await likeSong(songId, user?.id!);
+        setIsLiked(!isLiked);
+        refreshUser();
     }
+
+    useEffect(() => {
+        setIsLiked(user?.likedSongs.some(song => song.id === songId) ?? false);
+        console.log("updating songs");
+    }, [user, songId]);
 
     return (
         <button
             onClick={handleLike}
-            className="hover:opacity-75 transition"
+            className="hover:opacity-75 p-2 transition"
         >
-            <Icon color={isLiked ? `#22c55e` : `white`} size={25} />
+            <Icon color={isLiked ? `#B87FF1` : `white`} size={25} />
         </button>
     )
 }

@@ -23,7 +23,15 @@ export const getUser = async () => {
                 name: true,
                 id: true,
                 email: true,
-            }
+                likedSongs: {
+                    select: {
+                        id: true,
+                        title: true,
+                        imageFile: true,
+                        artist: true
+                    }
+                }
+            },
         });
 
         if (!user) {

@@ -17,6 +17,12 @@ type User = {
     name: string;
     id: string;
     email: string;
+    likedSongs: {
+        id: string;
+        title: string;
+        imageFile: string;
+        artist: string
+    }[];
 }
 
 export const MyUserContextProvider = (props: Props) => {
@@ -24,12 +30,15 @@ export const MyUserContextProvider = (props: Props) => {
     const [loading, setLoading] = useState(true);
 
     const fetchUser = useCallback(async () => {
+        console.log("fetching user again")
         setLoading(true);
-        const { user, success } = await getUser();
-        if (success) {
-            setUser(user!);
-        } else {
-            setUser(null);
+        try {
+            const { user, success } = await getUser();
+            if (success) {
+                setUser(user!);
+            }
+        } catch (error) {
+            console.error("Error fetching user:", error);
         }
         setLoading(false);
     }, []);
@@ -42,6 +51,7 @@ export const MyUserContextProvider = (props: Props) => {
         <UserContext.Provider value={{ user, loading, refreshUser: fetchUser }} {...props} />
     );
 };
+
 
 export const useUser = () => {
     const context = useContext(UserContext);

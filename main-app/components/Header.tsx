@@ -35,7 +35,7 @@ const Header: React.FC<HeaderProps> = ({
     const pathname = usePathname();
     const { refreshUser } = useUser();
 
-    const isAdmin = process.env.NEXT_PUBLIC_ADMIN_EMAIL === user.email;
+    const isAdmin = process.env.NEXT_PUBLIC_ADMIN_EMAIL === user?.email;
 
     const handleLogout = async () => {
         const { error } = await logoutUser();
@@ -71,7 +71,7 @@ const Header: React.FC<HeaderProps> = ({
                 <div className="flex justify-between">
                     {
                         user ? (
-                            <div className="flex items-center gap-x-4">
+                            <div className="flex items-center gap-x-2">
                                 <Button
                                     onClick={handleLogout}
                                     className="font-bold text-black bg-white rounded-full shadow"
